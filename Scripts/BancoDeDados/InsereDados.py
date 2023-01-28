@@ -1,9 +1,12 @@
+import datetime
+
 from Scripts.Classes.Classes import Cobranca
 import re
 def InsereDadosBD(conexao, df):
     cursor = conexao.cursor()
     dados_cobranca = CriaInstanciaCobranca(df)
     Consulta_Cobrancas_Nao_Cadastradas(cursor, dados_cobranca)
+    return cursor
 
 def CriaInstanciaCobranca(df):
     data_prevista_pagamento = TrataDatas(list(df['Data Prevista para pagamento']))
@@ -17,8 +20,7 @@ def CriaInstanciaCobranca(df):
     )
 
 def TrataDatas(datas):
-    datas_sem_hora = [re.sub(r'..:..:..', '', str(data_sem_hora)) for data_sem_hora in datas]
-    return [re.sub('-', '/', data) for data in datas_sem_hora]
+    return [datetime.datetime.strftime(data_sem_hora, '%Y-%m-%d') for data_sem_hora in datas]
 
 def Consulta_Cobrancas_Nao_Cadastradas(cursor, dados):
     for i in range(len(dados.cpf_cnpj)):

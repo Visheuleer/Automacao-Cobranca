@@ -1,12 +1,11 @@
 import datetime
 import pandas as pd
-import re
 def ConsultaAtrasosPagamentosExcel(df):
     data_hoje = datetime.datetime.now()
     datas_vencidas = VerificaSeDataVencimentoJaPassou(data_hoje, df)
     df_contas_vencidas = MontaDfsContasVencidas(df, datas_vencidas)
     df_cobranca = PegaContasVencidasNaoPagas(df_contas_vencidas)
-    print(df_cobranca)
+    return df_cobranca
 
 def VerificaSeDataVencimentoJaPassou(data_atual, df):
     datas_vencidas = []
