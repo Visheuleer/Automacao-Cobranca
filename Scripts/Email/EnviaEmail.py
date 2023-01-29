@@ -22,12 +22,12 @@ def EstilizaDf(df_cobranca):
     return df_cobranca
 
 
-def EnviaEmail(df, email):
+def EnviaEmail(df, email_cobranca):
     email, senha = PegaCredenciais()
     outlook.username = email
     outlook.password = senha
     outlook.send(
-            receivers=[email],
+            receivers=[email_cobranca],
             subject="Contas Vencidas",
             html=f"""
                 <body lang=PT-BR link="#0563C1" vlink="#954F72" style='tab-size:35.4pt'>
